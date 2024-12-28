@@ -1,0 +1,42 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+
+int main(void) {
+	int star = 1;
+	int sp = 0;
+	int re = 0;
+
+	printf("--프로그램 시작--\n\n");
+
+	printf("숫자를 입력해주세요:");
+	scanf("%d", &re);
+	sp = re - 1;
+	for (int n = 0; n < re; n++) {//n번째 줄까지 
+		for (int i = 0; i < sp; i++) {//공백생성
+			printf(" ");
+		}
+		for (int i = 0; i < star; i++) {//별 생성
+			printf("*");
+		}
+		printf("\n");
+
+		sp -= 1;
+		star += 2;
+	}
+	sp = 1;
+	star -= 4;
+	for (int n = 0; n < re - 1; n++) {//n+1번부터 마지막 줄까지
+		for (int i = 0; i < sp; i++) {//공백 생성
+			printf(" ");
+		}
+		for (int i = 0; i < star; i++) {//별 생성
+			printf("*");
+		}
+		printf("\n");
+		sp += 1;
+		star -= 2;
+	}
+
+	printf("\n\n--프로그램 종료--");
+	return 0;
+}
