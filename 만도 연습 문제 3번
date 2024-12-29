@@ -1,0 +1,38 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#include<string.h>
+
+int main(void) {
+	char str[100];//문자열
+	int string = 0;//str의 길이
+	int a[26];
+	int alen = 0;//a배열의 길이
+	int* pr = a;
+	for (int n = 0; n < 26; n++) {//a배열의 값을 -1로 초기화
+		*(pr+n) = -1;
+	}
+	printf("문자를 입력하세요:");
+	scanf("%s", &str);
+	string = strlen(str);
+	for (int n = 0; n < string; n++) {//중복 확인
+		for (int i = 0; i < string; i++) {
+			if (str[n] == str[i] && n != i) {
+				str[i] = 'A';//알파벳 소문자의 아스키코드 범위 밖의 값으로 변경
+			}
+		}
+	}
+	for (int n = 0; n < string; n++) {//알파벳 확인
+		for (int i = 97; i <= 122; i++) {
+			if (str[n] == i) {
+				*(pr + (i-97)) = n;
+			}
+		}
+	}
+	alen = sizeof(a) / sizeof(int);
+	for (int n = 0; n < alen; n++) {//출력
+		printf("%d ", *(pr + n));
+	}
+
+
+	return 0;
+}
