@@ -1,0 +1,43 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+#define A_LEN 100
+
+int main(void) {
+	int count = 1;//count번째 학생
+	int num = 0;
+	int a[A_LEN];
+	int jump = 0;//입력값
+
+	printf("--프로그램 시작--\n\n");
+	printf("학생의 수를 입력하세요 : ");
+	scanf("%d", &num);
+
+	for (int n = 0; n < num; n++) {
+		if (n == 0) {
+			printf("0을 입력해주세요 : ");
+		}
+		else {
+			printf("0부터 %d까지의 자연수에서 하나를 골라 입력해주세요 : ", n);
+		}
+		scanf("%d", &jump);
+		if (jump > n || jump < 0) {
+			printf("오류!! 프로그램을 종료합니다\n");
+		}
+		for (int i = 0; i < A_LEN - n + jump; i++) {//순서 정하기
+			a[A_LEN - i] = a[A_LEN - 1 - i];
+		}
+		a[n - jump] = count;
+		printf("%d번째 학생이 뽑은 후 : ", n + 1);
+		for (int i = 0; i < n + 1; i++) {//출력
+			printf("%d ", a[i]);
+		}
+		printf("\n");
+		count += 1;
+	}
+
+
+
+	printf("\n--프로그램 종료--");
+
+	return 0;
+}
