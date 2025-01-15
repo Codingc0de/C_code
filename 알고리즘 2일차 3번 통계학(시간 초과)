@@ -1,0 +1,109 @@
+#define _CRT_SECURE_NO_WARNINGS
+#include<stdio.h>
+
+int a1[500000] = { NULL };
+int a2[500000] = { NULL };
+
+int re(int put) {
+	int min = a1[0];
+	int index = 0;
+	for (int n = 0; n < put; n++) {
+		for (int i = 0; i < put; i++) {
+			if (min > a1[i]) {
+				min = a1[i];
+				index = i;
+			}
+		}
+		a2[n] = min;
+		a1[index] = 4000;
+		min = a1[0];
+		index = 0;
+	}
+}
+
+int average(int put) {
+	float sum = 0;
+	float result = 0;
+	int result2 = 0;
+	for (int n = 0; n < put; n++) {
+		sum = sum + a2[n];
+	}
+	result = sum / put;
+	result2 = result * 10;
+	if (result2 > 0 && result2%10 > 4) {
+		result=result + 1;
+	}
+	else if (result2 < 0 && result2<-4 ) {
+		result = result - 1;
+	}
+	printf("%d\n", (int)result);
+}
+
+int mid(int put) {
+	printf("%d\n", a2[(put / 2)]);
+}
+
+int cnt(int put) {
+	int max = 0;
+	int max_index = 0;
+	int max_cnt = 0;
+	for (int n = 0; n < put; n++) {//a1을 0으로 초기화
+		a1[n] = 0;
+	}
+	for (int n = 0; n < put; n++) {//개수 구하기
+		for (int i = 0; i < put; i++) {
+			if (a2[n] == a2[i]) {
+				a1[n] = a1[n] + 1;
+			}
+		}
+		n = n + a1[n] - 1;
+	}
+	max = a1[0];
+	for (int n = 0; n < put; n++) {//가장 많은 수 구하기 
+		if (max < a1[n]) {
+			max = a1[n];
+			max_index = n;
+		}
+	}
+	for (int n = 0; n < put; n++) {//max값의 개수 구하기
+		if (max == a1[n]) {
+			max_cnt += 1;
+		}
+	}
+	if (max_cnt < 2) {
+		printf("%d\n", a2[max_index]);
+	}
+	else if (max_cnt >= 2) {
+		a1[max_index] = 0;
+		for (int n = 0; n < put; n++) {
+			if (max == a1[n]) {
+				printf("%d\n", a2[n]);
+				n = put - 1;
+			}
+		}
+	}
+}
+
+int range(int put) {
+	int min = a2[0];
+	int max = a2[put - 1];
+	printf("%d\n", max - min);
+}
+
+int main(void) {
+	int put = 0;
+	scanf("%d", &put);
+
+	for (int n = 0; n < put; n++) {
+		scanf("%d", &a1[n]);
+	}
+	re(put);
+	average(put);
+	mid(put);
+	cnt(put);
+	range(put);
+
+
+
+	return 0;
+}
